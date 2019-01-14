@@ -19,23 +19,23 @@ export class Bear {
     if (this.foodLevel === 0) {
       this.angerLevel += 5;
     } else if (this.foodLevel < 5) {
-      this.angerLevel += 1
+      this.angerLevel += 1;
     }
   }
 
-  attack(hiker) {
+  attack(hikerObject) {
     if(this.angerLevel >= 1) {
-      hiker.health -= this.angerLevel;
-      this.foodLevel += 1
+      hikerObject.health -= this.angerLevel;
+      this.foodLevel += 1;
     }
   }
 
-  updateBearStats(hiker) {
+  updateBearStats(hikerObject) {
     setInterval(() => {
       this.makeSleepy();
       this.foodLevel --;
       this.anger();
-      this.attack(hiker);
+      this.attack(hikerObject);
     }, 3000);
   }
 
@@ -71,34 +71,81 @@ export class Hiker {
   }
 
   deathCheck() {
-    if (this.dead === true) {
-      return "You're Dead."
+    if (this.health <= 0) {
+      this.dead = true;
+      return "You're Dead.";
     }
   }
 
-  captureAttempt() {
+  captureAttempt(bearObject) {
     this.captureAttempts -= 1;
     this.stamina -= 1;
+    let chanceModifier = 0;
+
+    if (bearObject.asleep === true && bearObject.foodLevel === 10 && bearObject.angerLevel === 0) {
+      chanceModifier = 3;
+      if (this.chanceRoll(chanceModifier) === false) {
+        bearObject.asleep = false;
+        bearObject.sleepiness = 0;
+        console.log("You woke the bearObject!");
+      } else {
+        bearObject.captureStatus = true;
+        console.log("You captured the bearObject!");
+      }
+    } else if (bearObject.angerLevel < 5 && bearObject.asleep === false){
+      chanceModifier = 5;
+      if (this.chanceRoll(chanceModifier) === false) {
+        bearObject.anger += 1;
+        bearObject.attack(this);
+        this.deathCheck();
+        console.log("You've been bearObject attacked!");
+      } else {
+        bearObject.captureStatus = true;
+        console.log("You captured the bear!");
+      }
+    } else if (bearObject.angerLevel > 5 && bearObject.asleep === false){
+      chanceModifier = 20;
+      if(this.chanceRoll(chanceModifier) === false) {
+        bearObject.anger += 2;
+        bearObject.attack(this);
+        this.deathCheck();
+        console.log("You've been bearObject attacked!");
+      } else {
+        bearObject.captureStatus = true;
+        console.log("You captured the bear!");
+      }
+    }
   }
 
-  feedBear(bear) {
+  feedBear(bearObject) {
     if (this.berries > 0) {
-    this.berries --;
-    this.stamina --;
-    bear.foodLevel += 1;
+      this.berries --;
+      this.stamina --;
+      bearObject.foodLevel += 1;
     } else {
       return "Uh ohhh. NO berries!";
     }
   }
 
-  function chanceRoll(number) {
+  chanceRoll(number) {
     let result = Math.floor((Math.random() * number));
-    debugger;
-    if (result === number) {
+    if (result === (number - 1)) {
       return true;
     } else {
       return false;
     }
+  }
+
+  testRolls(number) {
+    let success = 0;
+    for (let i = 0; i < 1000; i++) {
+      let result = this.chanceRoll(number);
+      if (result === true) {
+        success += 1;
+      }
+    }
+    let percentage = (success / 1000);
+    return percentage;
   }
 
   updateHikerStats() {

@@ -1,9 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hangry Bear</title>
-  </head>
-  <body>
-    <h1>Can you appease the hangry bear?</h1>
-  </body>
+<head>
+  <title>Hangry Bear</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Can you appease the hangry bear? </h1>
+
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center" id="hiker-name">Hiker</h5>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">94</div>
+            </div>
+            <ul id="hiker-stats">
+              <li id="hiker-health">health</li>
+              <li id="hiker-stamina">stamina</li>
+              <li id="hiker-berries">berries</li>
+              <li id="hiker-captures">captures</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center">Bear</h5>
+            <div class="progress" id="bear-progress-bar"></div>
+            <ul id="bear-stats">
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <button type="submit" id="forage-button" name="button">Forage</button>
+            <button type="submit" id="feed-button"name="button">Feed</button>
+            <button type="submit" id="capture-button" name="button">Capture</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+</body>
 </html>
