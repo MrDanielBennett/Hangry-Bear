@@ -82,15 +82,31 @@ export class Hiker {
   }
 
   feedBear(bear) {
+    if (this.berries > 0) {
     this.berries --;
     this.stamina --;
     bear.foodLevel += 1;
+    } else {
+      return "Uh ohhh. NO berries!";
+    }
   }
 
-  // updateHikerStats() {
-  //   setInterval(() => {
-  //     this.stamina +=  4;
-  //   }, 5000);
-  // }
+  function chanceRoll(number) {
+    let result = Math.floor((Math.random() * number));
+    debugger;
+    if (result === number) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  updateHikerStats() {
+    setInterval(() => {
+      this.stamina += 1;
+      this.captureAttempts += 1;
+      this.deathCheck();
+    }, 5000);
+  }
 
 }
