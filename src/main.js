@@ -1,4 +1,5 @@
-import { Bear, Hiker } from './bear';
+import { Bear } from './bear';
+import { Hiker } from './hiker';
 
 import './styles.css';
 import $ from 'jquery';
@@ -10,6 +11,9 @@ $(document).ready(function() {
 
   let bear = new Bear('Gary');
   let hiker = new Hiker('Tasty Hiker');
+  bear.updateBearStats(hiker);
+  hiker.updateHikerStats(bear);
+  hiker.hikerStatCheck();
 
   $("#hiker-name").text(hiker.name);
 
@@ -23,11 +27,13 @@ $(document).ready(function() {
 
   $('#capture-button').click(function() {
     event.preventDefault();
+    hiker.captureAttempt(bear);
     console.log('you press capture');
   });
 
   $('#forage-button').click(function() {
     event.preventDefault();
+    hiker.forage();
     console.log('you press forage');
   });
 
@@ -36,6 +42,19 @@ $(document).ready(function() {
     $("#hiker-stamina").text(`Stamina: ${hiker.stamina}`);
     $("#hiker-berries").text(`Berries: ${hiker.berries}`);
     $("#hiker-captures").text(`Captures: ${hiker.captureAttempts}`);
+
+    $("#bear-food").text(`Food: ${bear.foodLevel}`);
+    $("#bear-sleepiness").text(`Sleepiness: ${bear.sleepyLevel}`);
+    $("#bear-anger").text(`Anger: ${bear.angerLevel}`);
+    $("#bear-asleep").text(`Asleep?: ${bear.asleep}`);
+    $("#bear-captured").text(`Captured?: ${bear.captureStatus}`);
+
+
+
+
+
+
+
   }, 10);
 
 });
