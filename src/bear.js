@@ -42,12 +42,21 @@ export class Bear {
   }
 
   updateBearStats(hikerObject) {
-    setInterval(() => {
+    const gameCycle = setInterval(() => {
       this.makeSleepy();
       this.checkForSleep();
       this.foodLevel --;
       this.anger();
       this.attack(hikerObject);
+
+      if (hikerObject.dead === true) {
+        clearInterval(gameCycle);
+        console.log("You've died! (gameCycle stopped)");
+      } else if (this.captured === true) {
+        clearInterval(gameCycle);
+        console.log("You GOT 'em!");
+      }
+
     }, 3000);
   }
 

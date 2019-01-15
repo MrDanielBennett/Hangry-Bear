@@ -13,7 +13,11 @@ export class Hiker {
 
   }
 
+  //gets more berries, uses stamina. Sets 'foraging' to true
   forage() {
+    if(this.foraging === true) {
+      return "You're still tired from your last forage."
+    }
     this.berries += 1;
     this.stamina -= 1;
     this.foraging = true;
@@ -22,11 +26,11 @@ export class Hiker {
     }, 5000);
   }
 
-  forageCheck() {
-    if (this.foraging === true) {
-      return "You're busy...";
-    }
-  }
+  // forageCheck() {
+  //   if (this.foraging === true) {
+  //     return "You're busy...";
+  //   }
+  // }
 
   deathCheck() {
     if (this.health <= 0) {
@@ -107,13 +111,17 @@ export class Hiker {
   }
 
   updateHikerStats() {
-    setInterval(() => {
+    const hikerCycle = setInterval(() => {
       this.stamina += 1;
       this.captureAttempts += 1;
       this.deathCheck();
       // if (this.dead === true) {
       //   alert("you deD");
       // }
+      if (this.dead === true) {
+        clearInterval(hikerCycle);
+        console.log("Hiker Cycle Stopped (for reasons of, you are dead)");
+      }
     }, 5000);
   }
 
