@@ -7,61 +7,90 @@
   <div class="container">
     <div id="battlefield">
 
-    <h1 class="text-center">Can you appease the hangry bear? </h1>
+      <h1 class="text-center">Can you appease the hangry bear? </h1>
 
-    <div class="row">
-
-      <div class="col-md-6">
-
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-center" id="hiker-name">Hiker</h5>
-            <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">94</div>
-            </div>
-            <ul id="hiker-stats">
-              <img class="center" src="https://cdn.bulbagarden.net/upload/6/6b/Ruby_Sapphire_Hiker.png" alt="hiker">
-              <li id="hiker-health">health</li>
-              <li id="hiker-stamina">stamina</li>
-              <li id="hiker-berries">berries</li>
-              <li id="hiker-captures">captures</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-center">Bear</h5>
-            <div class="progress" id="bear-progress-bar"></div>
-              <ul id="bear-stats">
-                <img class="center" src="https://images-na.ssl-images-amazon.com/images/I/512iaW-4J-L._SX425_.jpg" alt="this doesn't work">
-              <li id="bear-food">food</li>
-              <li id="bear-sleepiness">sleepiness</li>
-              <li id="bear-anger">anger</li>
-              <li id="bear-asleep">asleep</li>
-              <li id="bear-captured">captured</li>
-            </ul>
-
-          </div>
-        </div>
-      </div>
       <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-md-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center" id="hiker-name">Hiker</h5>
+              <ul id="hiker-stats">
+                <img class="center" src="https://cdn.bulbagarden.net/upload/6/6b/Ruby_Sapphire_Hiker.png" alt="hiker">
+                <li id="hiker-health">health</li>
+                <li id="hiker-stamina">stamina</li>
+                <li id="hiker-berries">berries</li>
+                <li id="hiker-captures">captures</li>
+              </ul>
+              <div class="row">
+
+                <div class="col-md-8">
+                  <h6>Health</h6>
+                  <div class="progress">
+                    <div id="hiker-health-bar" class="progress-bar bg-success" role="progressbar" style="" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h6>Stamina</h6>
+                  <div class="progress">
+                    <div id="hiker-stamina-bar" class="progress-bar bg-info" role="progressbar" style="" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="col-md-2 hiker-boxes" >
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title text-center">B</h6>
+                      <p id="number-of-berries"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2 hiker-boxes" >
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title text-center">C</h6>
+                      <p id="number-of-captures"></p>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center">Bear</h5>
+              <div class="progress" id="bear-progress-bar"></div>
+              <ul id="bear-stats">
+                <img class="center" src="https://images-na.ssl-images-amazon.com/images/I/512iaW-4J-L._SX425_.jpg" alt="this doesn't work">
+                <li id="bear-food">food</li>
+                <li id="bear-sleepiness">sleepiness</li>
+                <li id="bear-anger">anger</li>
+                <li id="bear-asleep">asleep</li>
+                <li id="bear-captured">captured</li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-12">
             <button class="btn btn-success btn-massive" type="submit" id="forage-button" name="button">Forage</button>
             <button class="btn btn-success btn-massive" type="submit" id="feed-button"name="button">Feed</button>
             <button class="btn btn-success btn-massive" type="submit" id="capture-button" name="button">Capture</button>
+
+          </div>
 
         </div>
 
       </div>
 
     </div>
-
-  </div>
 
   </div>
 </body>

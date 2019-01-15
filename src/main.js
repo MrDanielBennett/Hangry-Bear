@@ -17,7 +17,25 @@ $(document).ready(function() {
 
   $("#hiker-name").text(hiker.name);
 
-  $("#bear-progress-bar").html(`<div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${bear.foodLevel * 10}%" aria-valuenow="${bear.foodLevel * 10}" aria-valuemin="0" aria-valuemax="100">${bear.foodLevel * 10}</div>`);
+  const updateUI = setInterval(() => {
+    $("#bear-progress-bar").html(`<div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${bear.foodLevel * 10}%" aria-valuenow="${bear.foodLevel * 10}" aria-valuemin="0" aria-valuemax="100">${bear.foodLevel * 10}</div>`);
+
+    //Hiker health bar refresh
+    $("#hiker-health-bar").attr("style", `width: ${hiker.health * 10}%`)
+    $("#hiker-health-bar").attr("aria-valuenow", `${hiker.health * 10}`)
+    $("#hiker-health-bar").text(`${hiker.health * 10}%`)
+
+    //Hiker stamina bar refresh
+    $("#hiker-stamina-bar").attr("style", `width: ${hiker.stamina * 10}%`)
+    $("#hiker-stamina-bar").attr("aria-valuenow", `${hiker.stamina * 10}`)
+    $("#hiker-stamina-bar").text(`${hiker.stamina * 10}%`)
+
+    //Hiker berry refresh
+    $("#number-of-berries").text(`${hiker.berries}`)
+    //Hiker capture refresh
+    $("#number-of-captures").text(`${hiker.captureAttempts}`)
+
+  }, 10);
 
   $('#feed-button').click(function() {
     event.preventDefault();

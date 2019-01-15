@@ -2,7 +2,9 @@ body {
   background-color: tan !important;
 }
 
-
+.hiker-boxes{
+  padding: 5px;
+}
 .center {
   display: block;
   margin-left: auto;
@@ -15,4 +17,12 @@ body {
     padding: 10px 20px;
     font-size: 60px !important;
     border-radius: 10px;
+}
+
+#number-of-berries{
+  margin-bottom: 1px;
+}
+
+#number-of-captures{
+  margin-bottom: 1px;
 }
