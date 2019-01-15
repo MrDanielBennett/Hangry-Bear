@@ -35,3 +35,16 @@ $(document).ready(function() {
     });
   });
 });
+
+
+var addCheck = function(array, target) {
+  var checkArray = []
+  for(var i=0; i<array.length; i++) {
+    var needToEqualTarget = target - array[i];
+    checkArray = array.slice(i+1);
+    if(checkArray.includes(needToEqualTarget) === true) {
+      return true;
+    }
+  }
+  return false;
+}

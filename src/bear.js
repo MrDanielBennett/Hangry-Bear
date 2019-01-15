@@ -9,6 +9,7 @@ export class Bear {
     this.sleepyLevel = 0;
     this.asleep = false;
     this.captureStatus = false;
+    this.captureOdds = 0;
   }
 
   makeSleepy() {
@@ -29,10 +30,14 @@ export class Bear {
   checkForSleep(){
     if (this.sleepyLevel === 10){
       this.asleep = true;
-      this.anger = 0;
+      this.angerLevel = 0;
     }
-  }
 
+    if(this.foodLevel <= 5) {
+      this.asleep = false;
+    }
+
+  }
 
   attack(hikerObject) {
     if(this.angerLevel >= 1) {
@@ -43,12 +48,6 @@ export class Bear {
 
   updateBearStats(hikerObject) {
     const gameCycle = setInterval(() => {
-      this.makeSleepy();
-      this.checkForSleep();
-      this.foodLevel --;
-      this.anger();
-      this.attack(hikerObject);
-
       if (hikerObject.dead === true) {
         clearInterval(gameCycle);
         console.log("You've died! (gameCycle stopped)");
@@ -57,7 +56,41 @@ export class Bear {
         console.log("You GOT 'em!");
       }
 
+      this.makeSleepy();
+      this.checkForSleep();
+      this.foodLevel --;
+      this.anger();
+      this.attack(hikerObject);
+      this.bearStatCheck(hikerObject);
+
     }, 3000);
+  }
+
+  bearStatCheck(hikerObject) {
+      let checkEverything = setInterval(() => {
+      if(this.foodLevel > 10) {
+        this.foodLevel = 10;
+      } else if (this.foodLevel < 0) {
+        this.foodLevel = 0;
+      }
+
+      if(this.angerLevel > 10) {
+        this.angerLevel = 10;
+      } else if (this.angerLevel < 0) {
+        this.angerLevel = 0;
+      }
+
+      if(this.sleepyLevel > 10) {
+        this.sleepyLevel = 10;
+      } else if (this.sleepyLevel < 0) {
+        this.sleepyLevel = 0;
+      }
+
+      this.captureOdds = hikerObject.calculateCaptureOdds(this);
+
+      hikerObject.hikerStatCheck();
+    }, 1);
+
   }
 
 }

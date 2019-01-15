@@ -26,57 +26,36 @@ export class Hiker {
     }, 5000);
   }
 
-  // forageCheck() {
-  //   if (this.foraging === true) {
-  //     return "You're busy...";
-  //   }
-  // }
-
   deathCheck() {
     if (this.health <= 0) {
       this.dead = true;
-      return "You're Dead.";
     }
   }
 
   captureAttempt(bearObject) {
     this.captureAttempts -= 1;
     this.stamina -= 1;
-    let chanceModifier = 0;
 
-    if (bearObject.asleep === true && bearObject.foodLevel === 10 && bearObject.angerLevel === 0) {
-      chanceModifier = 3;
-      if (this.chanceRoll(chanceModifier) === false) {
-        bearObject.asleep = false;
-        bearObject.sleepyLevel = 0;
-        console.log("You woke the bearObject!");
-      } else {
-        bearObject.captureStatus = true;
-        console.log("You captured the bearObject!");
+    let sleepStatus = 0;
+      if (bearObject.asleep === true) {
+        sleepStatus = 10;
       }
-    } else if (bearObject.angerLevel < 5 && bearObject.asleep === false){
-      chanceModifier = 5;
-      if (this.chanceRoll(chanceModifier) === false) {
-        bearObject.angerLevel += 1;
-        bearObject.attack(this);
-        this.deathCheck();
-        console.log("You've been bearObject attacked!");
-      } else {
-        bearObject.captureStatus = true;
-        console.log("You captured the bear!");
-      }
-    } else if (bearObject.angerLevel > 5 && bearObject.asleep === false){
-      chanceModifier = 20;
-      if(this.chanceRoll(chanceModifier) === false) {
-        bearObject.angerLevel += 2;
-        bearObject.attack(this);
-        this.deathCheck();
-        console.log("You've been bearObject attacked!");
-      } else {
-        bearObject.captureStatus = true;
-        console.log("You captured the bear!");
-      }
+    let angerLevel = bearObject.angerLevel;
+    let foodLevel = bearObject.foodLevel;
+    let sleepiness = bearObject.sleepiness;
+    let chanceModifier = this.calculateCaptureOdds(bearObject);
+    let captureSuccess = this.chanceRoll(chanceModifier)
+
+    if(captureSuccess === false) {
+      bearObject.asleep = false;
+      bearObject.sleepiness = 0;
+      bearObject.attack(this);
+      console.log("The bear attacked you!!")
+    } else if (captureSuccess === true) {
+      bearObject.captured = true;
+      console.log("You won the bear. Good bear, team!")
     }
+
   }
 
   feedBear(bearObject) {
@@ -90,23 +69,39 @@ export class Hiker {
   }
 
   chanceRoll(number) {
-    let result = Math.floor((Math.random() * number));
-    if (result === (number - 1)) {
+    let rangeArray = [...Array(number).keys()];
+    let result = Math.floor((Math.random() * 100));
+    if (rangeArray.includes(result)) {
       return true;
     } else {
       return false;
     }
   }
 
+  calculateCaptureOdds(bearObject) {
+    let sleepStatus = 0;
+      if(bearObject.asleep === true) {
+        sleepStatus = 10;
+      }
+    let bearHunger = bearObject.foodLevel;
+    let bearSleepiness = bearObject.sleepyLevel;
+    let bearAnger = bearObject.angerLevel;
+    let oddsFloat = ((((sleepStatus + bearHunger + bearSleepiness) - bearAnger)/30) * 100);
+    let oddsInteger = Math.round(oddsFloat);
+
+    return oddsInteger;
+  }
+
+
   testRolls(number) {
     let success = 0;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10000; i++) {
       let result = this.chanceRoll(number);
       if (result === true) {
         success += 1;
       }
     }
-    let percentage = (success / 1000);
+    let percentage = (success / 10000);
     return percentage;
   }
 
@@ -115,6 +110,7 @@ export class Hiker {
       this.stamina += 1;
       this.captureAttempts += 1;
       this.deathCheck();
+      this.hikerStatCheck();
       // if (this.dead === true) {
       //   alert("you deD");
       // }
@@ -126,32 +122,29 @@ export class Hiker {
   }
 
   hikerStatCheck() {
-    setInterval(() => {
-      if(this.stamina > 10) {
-        this.stamina = 10;
-      } else if (this.stamina < 0) {
-        this.stamina = 0;
-      }
+    if(this.stamina > 10) {
+      this.stamina = 10;
+    } else if (this.stamina < 0) {
+      this.stamina = 0;
+    }
 
-      if(this.health > 10) {
-        this.health = 10;
-      } else if (this.health < 0) {
-        this.health = 0;
-      }
+    if(this.health > 10) {
+      this.health = 10;
+    } else if (this.health < 0) {
+      this.health = 0;
+    }
 
-      if(this.berries > 5) {
-        this.berries = 5;
-      } else if (this.berries < 0) {
-        this.berries = 0;
-      }
+    if(this.berries > 5) {
+      this.berries = 5;
+    } else if (this.berries < 0) {
+      this.berries = 0;
+    }
 
-      if(this.captureAttempts > 3) {
-        this.captureAttempts = 3;
-      } else if (this.captureAttempts < 0) {
-        this.captureAttempts = 0;
-      }
-
-    }, 1);
+    if(this.captureAttempts > 3) {
+      this.captureAttempts = 3;
+    } else if (this.captureAttempts < 0) {
+      this.captureAttempts = 0;
+    }
   }
 
 }

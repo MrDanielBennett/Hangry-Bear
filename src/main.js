@@ -18,7 +18,24 @@ $(document).ready(function() {
   $("#hiker-name").text(hiker.name);
 
   const updateUI = setInterval(() => {
-    $("#bear-progress-bar").html(`<div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${bear.foodLevel * 10}%" aria-valuenow="${bear.foodLevel * 10}" aria-valuemin="0" aria-valuemax="100">${bear.foodLevel * 10}</div>`);
+    //View bear capture odds
+    $("#bear-capture-odds").text(`Capture Odds: ${bear.captureOdds}%`)
+
+
+    //Bear food level refresh
+    $("#bear-food-bar").attr("style", `width: ${bear.foodLevel * 10}%`)
+    $("#bear-food-bar").attr("aria-valuenow", `${bear.foodLevel * 10}`)
+    $("#bear-food-bar").text(`${bear.foodLevel * 10}%`)
+
+    //Bear sleepiness level refresh
+    $("#bear-sleep-bar").attr("style", `width: ${bear.sleepyLevel * 10}%`)
+    $("#bear-sleep-bar").attr("aria-valuenow", `${bear.sleepyLevel * 10}`)
+    $("#bear-sleep-bar").text(`${bear.sleepyLevel * 10}%`)
+
+    //Bear anger level refresh
+    $("#bear-rage-bar").attr("style", `width: ${bear.angerLevel * 10}%`)
+    $("#bear-rage-bar").attr("aria-valuenow", `${bear.angerLevel * 10}`)
+    $("#bear-rage-bar").text(`${bear.angerLevel * 10}%`)
 
     //Hiker health bar refresh
     $("#hiker-health-bar").attr("style", `width: ${hiker.health * 10}%`)
@@ -66,12 +83,6 @@ $(document).ready(function() {
     $("#bear-anger").text(`Anger: ${bear.angerLevel}`);
     $("#bear-asleep").text(`Asleep?: ${bear.asleep}`);
     $("#bear-captured").text(`Captured?: ${bear.captureStatus}`);
-
-
-
-
-
-
 
   }, 10);
 
