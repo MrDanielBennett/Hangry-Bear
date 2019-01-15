@@ -26,6 +26,14 @@ export class Bear {
     return;
   }
 
+  checkForSleep(){
+    if (this.sleepyLevel === 10){
+      this.asleep = true;
+      this.anger = 0;
+    }
+  }
+
+
   attack(hikerObject) {
     if(this.angerLevel >= 1) {
       hikerObject.health -= this.angerLevel;
@@ -36,6 +44,7 @@ export class Bear {
   updateBearStats(hikerObject) {
     setInterval(() => {
       this.makeSleepy();
+      this.checkForSleep();
       this.foodLevel --;
       this.anger();
       this.attack(hikerObject);
