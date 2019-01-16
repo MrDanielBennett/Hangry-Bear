@@ -21,6 +21,11 @@ $(document).ready(function() {
     //View bear capture odds
     $("#bear-capture-odds").text(`Capture Odds: ${bear.captureOdds}%`)
 
+    //Populates hiker message
+    $("#hiker-message").text(`${hiker.hikerMessage}`)
+
+    //Populates bear message
+    $("#bear-message").text(`${bear.bearMessage}`)
 
     //Bear food level refresh
     $("#bear-food-bar").attr("style", `width: ${bear.foodLevel * 10}%`)

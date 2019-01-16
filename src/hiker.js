@@ -10,13 +10,17 @@ export class Hiker {
     this.captureAttempts = 3;
     this.dead = false;
     this.foraging = false;
+    this.hikerMessage = "";
 
   }
 
   //gets more berries, uses stamina. Sets 'foraging' to true
   forage() {
     if(this.foraging === true) {
-      return "You're still tired from your last forage."
+      this.hikerMessage = "You're still tired from your last forage.";
+      let tempMessage = setTimeout(() => {
+        this.hikerMessage = "";
+      }, 5000)
     }
     this.berries += 1;
     this.stamina -= 1;
@@ -50,10 +54,12 @@ export class Hiker {
       bearObject.asleep = false;
       bearObject.sleepiness = 0;
       bearObject.attack(this);
-      console.log("The bear attacked you!!")
+      this.hikerMessage = "The bear attacked you!!";
+      let messageVanish = setTimeout(() => {
+        this.hikerMessage = "";
+      }, 5000);
     } else if (captureSuccess === true) {
       bearObject.captured = true;
-      console.log("You won the bear. Good bear, team!")
     }
 
   }
@@ -63,8 +69,6 @@ export class Hiker {
       this.berries --;
       this.stamina --;
       bearObject.foodLevel += 1;
-    } else {
-      return "Uh ohhh. NO berries!";
     }
   }
 
@@ -93,17 +97,17 @@ export class Hiker {
   }
 
 
-  testRolls(number) {
-    let success = 0;
-    for (let i = 0; i < 10000; i++) {
-      let result = this.chanceRoll(number);
-      if (result === true) {
-        success += 1;
-      }
-    }
-    let percentage = (success / 10000);
-    return percentage;
-  }
+  // testRolls(number) {
+  //   let success = 0;
+  //   for (let i = 0; i < 10000; i++) {
+  //     let result = this.chanceRoll(number);
+  //     if (result === true) {
+  //       success += 1;
+  //     }
+  //   }
+  //   let percentage = (success / 10000);
+  //   return percentage;
+  // }
 
   updateHikerStats() {
     const hikerCycle = setInterval(() => {
@@ -111,12 +115,8 @@ export class Hiker {
       this.captureAttempts += 1;
       this.deathCheck();
       this.hikerStatCheck();
-      // if (this.dead === true) {
-      //   alert("you deD");
-      // }
       if (this.dead === true) {
         clearInterval(hikerCycle);
-        console.log("Hiker Cycle Stopped (for reasons of, you are dead)");
       }
     }, 5000);
   }

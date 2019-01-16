@@ -10,6 +10,7 @@ export class Bear {
     this.asleep = false;
     this.captureStatus = false;
     this.captureOdds = 0;
+    this.bearMessage = "";
   }
 
   makeSleepy() {
@@ -50,10 +51,10 @@ export class Bear {
     const gameCycle = setInterval(() => {
       if (hikerObject.dead === true) {
         clearInterval(gameCycle);
-        console.log("You've died! (gameCycle stopped)");
+        hikerObject.hikerMessage = "You got bear murdered!"
       } else if (this.captured === true) {
         clearInterval(gameCycle);
-        console.log("You GOT 'em!");
+        hikerObject.hikerMessage = "You captured king denim bear!"
       }
 
       this.makeSleepy();
